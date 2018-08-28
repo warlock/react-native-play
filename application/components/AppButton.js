@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import { Dimensions } from 'react-native' 
 
 export default class AppButton extends Component {
@@ -20,13 +19,10 @@ export default class AppButton extends Component {
           width
         }}
         title={title}
-        icon={<Icon
-          name={iconName}
-          color={iconColor}
-          />
-        }
+        size={15}
+        icon={{ name: iconName, type: 'font-awesome' }}
+        rightIcon={{ color: iconColor }}
         text={title}
-        iconRight={true}
       >
       </Button>
     )
