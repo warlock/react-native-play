@@ -1,5 +1,6 @@
 
 {
+  "parser": "babel-eslint",
   "plugins": [
     "react",
     "react-native"
@@ -9,5 +10,8 @@
         "jsx": true,
         "modules": true
     }
+  },
+  "rules": {
+    "semi": ["error", "never"]
   }
 }

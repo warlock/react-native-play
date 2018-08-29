@@ -16,5 +16,11 @@
     "react-native-simple-toast": "0.0.8",
     "react-navigation": "^2.12.1",
     "tcomb-form-native": "^0.6.15"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.4.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-native": "^3.2.1"
   }
 }
