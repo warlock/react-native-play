@@ -18,7 +18,8 @@ export default class Register extends Component {
         password_clear: '',
         confirm_password: '',
         first_name: '',
-        last_name: ''
+        last_name: '',
+        email: ''
       }
     }
     
@@ -29,6 +30,7 @@ export default class Register extends Component {
     this.registerForm = t.struct({
       first_name: registerValidation.first_name,
       last_name: registerValidation.last_name,
+      email: registerValidation.email,
       birthdate: registerValidation.birthdate,
       password_clear: registerValidation.password_clear,
       confirm_password: this.samePassword
@@ -46,11 +48,14 @@ export default class Register extends Component {
           help: 'Introduce tu apellido',
           autoCapitalize: 'words'
         },
+        email: {
+          label: 'Email',
+          help: 'Introduce tu email'
+        },
         birthdate: {
           label: 'Fecha de nacimiento',
-          help: 'Introduce tu email',
-          error: 'Email incorrecto',
-          autoCapitalize: 'none'
+          help: 'Introduce tu fecha de nacimiento',
+          error: 'Fecha incorrecta',
         },
         password_clear: {
           label: 'Contraseña',
@@ -79,12 +84,6 @@ export default class Register extends Component {
   register () {
     this.validate = this.refs.form.getValue()
     if (this.validate) {
-      alert('ok')
-    } else {
-      alert('buh')
-    }
-    /*
-    if (this.validate) {
       fetch('', {
         method: 'POST',
         headers: {
@@ -92,12 +91,12 @@ export default class Register extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          birthdate: validate.birthdate,
-          confirm_password: validate.confirm_password,
-          email: validate.email,
-          first_name: validate.first_name,
-          last_name: validate.last_name,
-          password_clear: validate.password_clear
+          birthdate: this.validate.birthdate,
+          confirm_password: this.validate.confirm_password,
+          email: this.validate.email,
+          first_name: this.validate.first_name,
+          last_name: this.validate.last_name,
+          password_clear: this.validate.password_clear
         })
       })
       .then(resp => resp.json())
@@ -108,7 +107,6 @@ export default class Register extends Component {
         console.log(error)
       })
     }
-    */
   }
 
   render () {
@@ -128,7 +126,7 @@ export default class Register extends Component {
             />
             <AppButton
               bgColor="rgba(111, 38, 74, 07)"
-              title="Register"
+              title="Registra"
               action={this.register.bind(this)}
               iconName="sign-in"
               iconSize={30}

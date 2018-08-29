@@ -41,7 +41,7 @@ export default class Start extends Component {
           />
           <AppButton
             bgColor="rgba(111, 38, 74, 0.7)"
-            title="Register"
+            title="Registra"
             action={this.register.bind(this)}
             iconName="user-plus"
             iconSize={30}

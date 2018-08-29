@@ -10,6 +10,9 @@ export const formValidation = {
 }
 
 export const registerValidation = {
+  email: t.refinement(t.String, s => {
+    return /@/.test(s) && s.length >= 6
+  }),
   birthdate: t.maybe(t.String),
   password_clear: t.refinement(t.String, s => {
     return s.length >= 6
