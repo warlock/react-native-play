@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from "react-native"
 import GuestNavigation from './application/navigations/guest'
-import { Text } from 'react-native-elements'
 import PreLoader from './application/components/PreLoader'
+import Home from './application/components/Home'
 
 export default class App extends Component {
 
@@ -14,29 +15,31 @@ export default class App extends Component {
   }
 
   async componentDidMount () {
-    setTimeout(() => {
-      //Chequeja si esta loguejat
+
+    const value = await AsyncStorage.getItem('@app:token')
+    if (value) {
+      this.setState({
+        isLogged: true,
+        loaded: true
+      })
+    } else {
       this.setState({
         isLogged: false,
         loaded: true
       })
-    }, 3000)
+    }
   }
 
   render() {
     const { isLogged, loaded } = this.state
 
     if (!loaded) {
-      return (
-        <PreLoader />
-      )
+      return (<PreLoader />)
     } else {
       if (isLogged) {
-        return (<Text>Hola user</Text>)
+        return (<Home />)
       } else {
-        return (
-          <GuestNavigation />
-        )
+        return (<GuestNavigation />)
       }
     }
   }

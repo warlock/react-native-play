@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, AsyncStorage } from 'react-native'
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from "../components/AppButton"
 import t from 'tcomb-form-native'
@@ -7,6 +7,7 @@ import { formValidation } from '../utils/validation'
 import { Card } from 'react-native-elements'
 const Form = t.form.Form
 import Toast from 'react-native-simple-toast'
+import { apilogin } from '../utils/api'
 
 export default class Login extends Component {
   constructor () {
@@ -39,7 +40,7 @@ export default class Login extends Component {
 
     if (validate) {
       console.log('success')
-      fetch('', {
+      fetch(apilogin, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -54,6 +55,19 @@ export default class Login extends Component {
       .then(resp => {
         console.log(resp)
         Toast.showWithGravity("Benvingut!", Toast.LONG, Toast.BOTTOM)
+        if (resp.response_code === 415 && resp.response_data.token && resp.response_data.token !== '' && resp.response_data.token !== null) {
+          AsyncStorage.setItem('@app:token', resp.response_data.token)
+            .then(() => {
+              console.log('EStic dins')
+            })
+            .catch(error => {
+              console.log(error)
+              alert(error)
+            })
+        } else {
+          console.log('Error iftoken: ' + error)
+          alert(error)
+        }
       })
       .catch((error) => {
         if (error.response_code === 416) {
@@ -62,13 +76,17 @@ export default class Login extends Component {
           Toast.showWithGravity("Problemas al contactar con el servidor, intentelo mas tarde!", Toast.LONG, Toast.BOTTOM)
         }
         console.log(error)
-
       })
     }
   }
 
   render () {
     //Form ref="form" -> Hace referencia al this.ref.form
+
+    const dades = {
+      email: 'jimcuenta1@anpro21.com',
+      password: '1234567890'
+    }
 
     return (
       <BackgroundImage
@@ -80,6 +98,7 @@ export default class Login extends Component {
               ref="form"
               type={this.userForm}
               options={this.options}
+              value={dades}
             />
             <AppButton
               bgColor="rgba(111, 38, 74, 07)"

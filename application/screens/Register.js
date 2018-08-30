@@ -7,6 +7,7 @@ import { registerValidation } from '../utils/validation'
 import { Card } from 'react-native-elements'
 const Form = t.form.Form
 import Toast from 'react-native-simple-toast'
+import { apiregister } from '../utils/api'
 
 export default class Register extends Component {
   constructor () {
@@ -84,7 +85,7 @@ export default class Register extends Component {
   register () {
     this.validate = this.refs.form.getValue()
     if (this.validate) {
-      fetch('', {
+      fetch(apiregister, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
