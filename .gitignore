@@ -3,3 +3,4 @@ node_modules/**/*
 npm-debug.*
 package-lock.json
 application/utils/api.js
+application/utils/firebase.js

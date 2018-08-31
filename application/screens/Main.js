@@ -4,7 +4,20 @@ import { AsyncStorage } from 'react-native'
 import GuestNavigation from '../navigations/guest'
 import PreLoader from '../components/PreLoader'
 import Home from './Home'
+import firebaseConfig from '../utils/firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+firebase.initializeApp(firebaseConfig)
 
+const mapStateToProps = state => {
+  return {
+    loaded: state.loaded,
+    logged: state.logged
+  }
+}
+
+@connect(mapStateToProps)
 class App extends Component {
 
   async componentDidMount () {
@@ -34,11 +47,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    loaded: state.loaded,
-    logged: state.logged
-  }
-}
 
-export default connect(mapStateToProps)(App)
+
+export default App

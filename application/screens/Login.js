@@ -6,13 +6,13 @@ import { Card } from 'react-native-elements'
 import t from 'tcomb-form-native'
 
 import { formValidation } from '../utils/validation'
-import { apilogin } from '../utils/api'
 
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from "../components/AppButton"
 
 const Form = t.form.Form
 
+@connect()
 class Login extends Component {
   constructor () {
     super()
@@ -49,7 +49,7 @@ class Login extends Component {
         email: validate.email,
         password: validate.password
       }
-      fetch(apilogin, {
+      fetch('', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -123,4 +123,4 @@ class Login extends Component {
   }
 }
 
-export default connect()(Login)
+export default Login

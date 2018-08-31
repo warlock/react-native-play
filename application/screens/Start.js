@@ -24,6 +24,10 @@ export default class Start extends Component {
     this.props.navigation.dispatch(navigateAction)
   }
 
+  async facebook () {
+
+  }
+
   render () {
     return (
       <BackgroundImage
@@ -39,10 +43,18 @@ export default class Start extends Component {
             iconColor="#fff"
           />
           <AppButton
-            bgColor="rgba(111, 38, 74, 0.7)"
+            bgColor="rgba(200, 200, 50, 0.7)"
             title="Registra"
             action={this.register.bind(this)}
             iconName="user-plus"
+            iconSize={30}
+            iconColor="#fff"
+          />
+          <AppButton
+            bgColor="rgba(67, 67, 146, 0.7)"
+            title="Facebook"
+            action={this.facebook.bind(this)}
+            iconName="facebook"
             iconSize={30}
             iconColor="#fff"
           />
