@@ -10,7 +10,6 @@ import { apilogin } from '../utils/api'
 
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from "../components/AppButton"
-import Toast from 'react-native-simple-toast'
 
 const Form = t.form.Form
 
@@ -43,60 +42,29 @@ class Login extends Component {
     }
   }
 
-  async tryLogin () {
+  tryLogin () {
     const validate = this.refs.form.getValue()
     if (validate) {
-      const post = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: validate.email,
-          password: validate.password,
-        })
+      const data = {
+        email: validate.email,
+        password: validate.password
       }
-      console.log(post)
-      try {
-        const response = await fetch(apilogin, post)//.then(res => res.json())
-        console.log('aqui')
-        console.log(response)
-        const responseJson = await response.json()
-        console.log(responseJson)
-      } catch (error) {
-        console.log(error)
-      }
-
-    }
-  }
-/*
-  login2 () {
-    const validate = this.refs.form.getValue()
-
-    if (validate) {
-      console.log(apilogin)
       fetch(apilogin, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: validate.email,
-          password: validate.password,
-        })
+        body: JSON.stringify(data)
       })
       .then(resp => resp.json())
       .then(resp => {
-        console.log(resp)
-        console.log('ok')
-        Toast.showWithGravity("Benvingut!", Toast.LONG, Toast.BOTTOM)
-        if (resp.response_code === 415 && resp.response_data.token && resp.response_data.token !== '' && resp.response_data.token !== null) {
+        if (resp.response_code === 415 && resp.response_data.token) {
+          console.log(resp.response_data.token)
           AsyncStorage.setItem('@app:token', resp.response_data.token)
             .then(() => {
               this.props.dispatch({
-                type: 'LOGGED_OK',
+                type: 'SIGN_IN',
                 payload: resp.response_data.token
               })
             })
@@ -110,17 +78,15 @@ class Login extends Component {
         }
       })
       .catch((error) => {
-        console.log('error')
         if (error.response_code === 416) {
-          Toast.showWithGravity("El usuario o la contraseña son incorrectos!", Toast.LONG, Toast.BOTTOM)
+          alert('El usuario o la contraseña son incorrectos!')
         } else {
           console.log(JSON.stringify(error))
-          Toast.showWithGravity("Problemas al contactar con el servidor, intentelo mas tarde!", Toast.LONG, Toast.BOTTOM)
+          alert('Problemas al contactar con el servidor, intentelo mas tarde!')
         }
       })
     }
   }
-  */
 
   render () {
     //Form ref="form" -> Hace referencia al this.ref.form

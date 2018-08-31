@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from '../components/AppButton'
 import { NavigationActions } from 'react-navigation'
-import Toast from 'react-native-simple-toast'
 
 export default class Start extends Component {
   

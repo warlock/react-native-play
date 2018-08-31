@@ -21,7 +21,7 @@ class Home extends Component {
 
   render () {
     return (
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: 20 }}>
         <Text>Hola user</Text>
         <AppButton
           bgColor="rgba(111, 38, 74, 07)"

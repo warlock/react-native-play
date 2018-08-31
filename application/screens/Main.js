@@ -7,12 +7,6 @@ import Home from './Home'
 
 class App extends Component {
 
-  componentWillMount () {
-    setTimeout(() => {
-      this.props.dispatch({ type: 'LOAD_OK' })
-    }, 3000)
-  }
-
   async componentDidMount () {
     const value = await AsyncStorage.getItem('@app:token')
     if (value) {
