@@ -1,7 +1,7 @@
 import { createStore }  from 'redux'
 
 const initialState = {
-  isLogged: false,
+  logged: false,
   loaded: false,
   token: null
 }
@@ -13,9 +13,18 @@ const reducer = (state = initialState, action) => {
     case 'LOAD_OK':
       newstate.loaded = true
       return newstate
-    default:
+    case 'SIGN_IN':
+      newstate.token = action.payload
+      newstate.logged = true
       return newstate
+    case 'SIGN_OUT':
+      newstate.token = null
+      newstate.logged = false
+      return newstate
+    default:
+    return newstate
   }
+
 }
 
 export const store = createStore(reducer)

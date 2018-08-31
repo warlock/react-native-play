@@ -8,17 +8,11 @@ import { Card } from 'react-native-elements'
 const Form = t.form.Form
 import Toast from 'react-native-simple-toast'
 import { apilogin } from '../utils/api'
-import { store } from '../store/store'
+import { connect } from 'react-redux'
 
-export default class Login extends Component {
+class Login extends Component {
   constructor () {
     super()
-
-    this.state = {
-      isLogged: false,
-      loaded: true,
-      token: null
-    }
 
     this.userForm = t.struct({
       email: formValidation.email,
@@ -47,7 +41,7 @@ export default class Login extends Component {
     const validate = this.refs.form.getValue()
 
     if (validate) {
-      console.log('success')
+      console.log(apilogin)
       fetch(apilogin, {
         method: 'POST',
         headers: {
@@ -62,14 +56,15 @@ export default class Login extends Component {
       .then(resp => resp.json())
       .then(resp => {
         console.log(resp)
+        /*
+        console.log('ok')
         Toast.showWithGravity("Benvingut!", Toast.LONG, Toast.BOTTOM)
         if (resp.response_code === 415 && resp.response_data.token && resp.response_data.token !== '' && resp.response_data.token !== null) {
           AsyncStorage.setItem('@app:token', resp.response_data.token)
             .then(() => {
-              this.setState({
-                isLogged: true,
-                loaded: true,
-                token: resp.response_data.token
+              this.props.dispatch({
+                type: 'LOGGED_OK',
+                payload: resp.response_data.token
               })
             })
             .catch(error => {
@@ -80,14 +75,16 @@ export default class Login extends Component {
           console.log('Error iftoken: ' + error)
           alert(error)
         }
+        */
       })
       .catch((error) => {
+        console.log('error')
         if (error.response_code === 416) {
           Toast.showWithGravity("El usuario o la contraseña son incorrectos!", Toast.LONG, Toast.BOTTOM)
         } else {
+          console.log(JSON.stringify(error))
           Toast.showWithGravity("Problemas al contactar con el servidor, intentelo mas tarde!", Toast.LONG, Toast.BOTTOM)
         }
-        console.log(error)
       })
     }
   }
@@ -126,3 +123,5 @@ export default class Login extends Component {
     )
   }
 }
+
+export default connect()(Login)
