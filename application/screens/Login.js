@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
 import { View, AsyncStorage } from 'react-native'
+import { connect } from 'react-redux'
+import { Card } from 'react-native-elements'
+
+import t from 'tcomb-form-native'
+
+import { formValidation } from '../utils/validation'
+import { apilogin } from '../utils/api'
+
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from "../components/AppButton"
-import t from 'tcomb-form-native'
-import { formValidation } from '../utils/validation'
-import { Card } from 'react-native-elements'
-const Form = t.form.Form
 import Toast from 'react-native-simple-toast'
-import { apilogin } from '../utils/api'
-import { connect } from 'react-redux'
+
+const Form = t.form.Form
 
 class Login extends Component {
   constructor () {
     super()
+
+    this.tryLogin = this.tryLogin.bind(this)
 
     this.userForm = t.struct({
       email: formValidation.email,
@@ -37,7 +43,35 @@ class Login extends Component {
     }
   }
 
-  login () {
+  async tryLogin () {
+    const validate = this.refs.form.getValue()
+    if (validate) {
+      const post = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: validate.email,
+          password: validate.password,
+        })
+      }
+      console.log(post)
+      try {
+        const response = await fetch(apilogin, post)//.then(res => res.json())
+        console.log('aqui')
+        console.log(response)
+        const responseJson = await response.json()
+        console.log(responseJson)
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+  }
+/*
+  login2 () {
     const validate = this.refs.form.getValue()
 
     if (validate) {
@@ -56,7 +90,6 @@ class Login extends Component {
       .then(resp => resp.json())
       .then(resp => {
         console.log(resp)
-        /*
         console.log('ok')
         Toast.showWithGravity("Benvingut!", Toast.LONG, Toast.BOTTOM)
         if (resp.response_code === 415 && resp.response_data.token && resp.response_data.token !== '' && resp.response_data.token !== null) {
@@ -75,7 +108,6 @@ class Login extends Component {
           console.log('Error iftoken: ' + error)
           alert(error)
         }
-        */
       })
       .catch((error) => {
         console.log('error')
@@ -88,6 +120,7 @@ class Login extends Component {
       })
     }
   }
+  */
 
   render () {
     //Form ref="form" -> Hace referencia al this.ref.form
@@ -112,7 +145,7 @@ class Login extends Component {
             <AppButton
               bgColor="rgba(111, 38, 74, 07)"
               title="Login"
-              action={this.login.bind(this)}
+              action={this.tryLogin}
               iconName="sign-in"
               iconSize={30}
               iconColor="#fff"

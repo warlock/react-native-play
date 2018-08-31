@@ -1,9 +1,8 @@
 
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import AppButton from '../components/AppButton'
-import { AsyncStorage } from 'react-native'
 
 class Home extends Component {
   constructor () {
