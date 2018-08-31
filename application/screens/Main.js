@@ -27,13 +27,11 @@ class App extends Component {
   }
 }
 
-
-const hoc = connect(state => {
+const mapStateToProps = state => {
   return {
     loaded: state.loaded,
     isLogged: state.isLogged
   }
-})
+}
 
-
-export default hoc(App)
+export default connect(mapStateToProps)(App)
