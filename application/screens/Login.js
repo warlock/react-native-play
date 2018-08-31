@@ -8,10 +8,18 @@ import { Card } from 'react-native-elements'
 const Form = t.form.Form
 import Toast from 'react-native-simple-toast'
 import { apilogin } from '../utils/api'
+import { store } from '../store/store'
 
 export default class Login extends Component {
   constructor () {
     super()
+
+    this.state = {
+      isLogged: false,
+      loaded: true,
+      token: null
+    }
+
     this.userForm = t.struct({
       email: formValidation.email,
       password: formValidation.password
@@ -58,7 +66,11 @@ export default class Login extends Component {
         if (resp.response_code === 415 && resp.response_data.token && resp.response_data.token !== '' && resp.response_data.token !== null) {
           AsyncStorage.setItem('@app:token', resp.response_data.token)
             .then(() => {
-              console.log('EStic dins')
+              this.setState({
+                isLogged: true,
+                loaded: true,
+                token: resp.response_data.token
+              })
             })
             .catch(error => {
               console.log(error)

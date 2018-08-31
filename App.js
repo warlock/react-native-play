@@ -1,46 +1,41 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from "react-native"
-import GuestNavigation from './application/navigations/guest'
-import PreLoader from './application/components/PreLoader'
-import Home from './application/components/Home'
+import Main from './application/screens/Main'
+import { store } from './application/store/store'
+import { Provider } from 'react-redux'
 
 export default class App extends Component {
 
+  /*
+  state = {
+    loaded: false,
+    isLogged: false
+  }
+
   constructor () {
     super()
-    this.state = {
-      isLogged: false,
-      loaded: false
-    }
   }
 
-  async componentDidMount () {
+  componentWillMount () {
+    store.subscribe(() => {
+      const { isLogged, loaded } = store.getState()
+      this.setState({
+        loaded,
+        isLogged
+      })
+    })
 
-    const value = await AsyncStorage.getItem('@app:token')
-    if (value) {
-      this.setState({
-        isLogged: true,
-        loaded: true
-      })
-    } else {
-      this.setState({
-        isLogged: false,
-        loaded: true
-      })
-    }
+    setTimeout(() => {
+      console.log('aaara')
+      store.dispatch({ type: 'LOAD_OK' })
+      //store.dispatch({ type: 'LOAD_OK', payload: 'buuu' })
+    }, 3000)
   }
-
-  render() {
-    const { isLogged, loaded } = this.state
-
-    if (!loaded) {
-      return (<PreLoader />)
-    } else {
-      if (isLogged) {
-        return (<Home />)
-      } else {
-        return (<GuestNavigation />)
-      }
-    }
+*/
+  render () {
+    return (
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    )
   }
 }
