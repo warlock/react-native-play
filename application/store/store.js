@@ -6,7 +6,6 @@ const initialState = {
   token: null
 }
 
-
 const reducer = (state = initialState, action) => {
   const newstate = Object.assign({}, state)
   switch (action.type) {
@@ -24,7 +23,6 @@ const reducer = (state = initialState, action) => {
     default:
     return newstate
   }
-
 }
 
 export const store = createStore(reducer)

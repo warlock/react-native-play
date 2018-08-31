@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import GuestNavigation from '../navigations/guest'
-import PreLoader from '../components/PreLoader'
-import Home from '../components/Home'
 import { connect } from 'react-redux'
 import { AsyncStorage } from 'react-native'
+import GuestNavigation from '../navigations/guest'
+import PreLoader from '../components/PreLoader'
+import Home from './Home'
 
 class App extends Component {
 

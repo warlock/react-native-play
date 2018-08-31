@@ -1,25 +1,23 @@
 
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
+import { connect } from 'react-redux'
 import AppButton from '../components/AppButton'
+import { AsyncStorage } from 'react-native'
 
-export default class Home extends Component {
+class Home extends Component {
   constructor () {
     super()
-    this.state = {
-      isLogged: true,
-      loaded: true,
-      token: null
-    }
+    this.logout = this.logout.bind(this)
   }
 
-  logout () {
-    this.setState({
-      isLogged: false,
-      loaded: false,
-      token: null
-    })
-    console.log('buu')
+  async logout () {
+    try {
+      await AsyncStorage.removeItem('@app:token')
+    } catch (error) {
+      console.log(error)
+    }
+    this.props.dispatch({ type: 'SIGN_OUT' })
   }
 
   render () {
@@ -29,7 +27,7 @@ export default class Home extends Component {
         <AppButton
           bgColor="rgba(111, 38, 74, 07)"
           title="Logout"
-          action={() => console.log('buu')}
+          action={this.logout}
           iconName="sign-in"
           iconSize={30}
           iconColor="#fff"
@@ -38,3 +36,6 @@ export default class Home extends Component {
     )
   }
 }
+
+
+export default connect()(Home)
