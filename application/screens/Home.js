@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react'
-import { View, Text, AsyncStorage } from 'react-native'
+import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import AppButton from '../components/AppButton'
+import firebase from 'firebase/app'
 
 @connect()
 class Home extends Component {
@@ -12,12 +13,10 @@ class Home extends Component {
   }
 
   async logout () {
-    try {
-      await AsyncStorage.removeItem('@app:token')
-    } catch (error) {
-      console.log(error)
-    }
-    this.props.dispatch({ type: 'SIGN_OUT' })
+    firebase.auth().signOut().then(() => {
+    }).catch((error) => {
+      alert(error.message)
+    })
   }
 
   render () {

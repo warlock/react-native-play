@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { AsyncStorage } from 'react-native'
 import GuestNavigation from '../navigations/guest'
 import PreLoader from '../components/PreLoader'
 import Home from './Home'
@@ -21,17 +20,15 @@ const mapStateToProps = state => {
 class App extends Component {
 
   async componentDidMount () {
-    const value = await AsyncStorage.getItem('@app:token')
-    if (value) {
-      this.props.dispatch({
-        type: 'SIGN_IN',
-        payload: value
-      })
-    } else {
-      this.props.dispatch({
-        type: 'LOAD_OK'
-      })
-    }
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.dispatch({
+          type: 'SIGN_IN'
+        })
+      } else {
+        this.props.dispatch({ type: 'SIGN_OUT' })
+      }
+    })
   }
 
   render () {

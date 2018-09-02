@@ -13,12 +13,12 @@ const reducer = (state = initialState, action) => {
       newstate.loaded = true
       return newstate
     case 'SIGN_IN':
-      newstate.token = action.payload
       newstate.logged = true
+      newstate.loaded = true
       return newstate
     case 'SIGN_OUT':
-      newstate.token = null
       newstate.logged = false
+      newstate.loaded = true
       return newstate
     default:
     return newstate
