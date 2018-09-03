@@ -45,6 +45,8 @@ class Login extends Component {
   tryLogin () {
     const validate = this.refs.form.getValue()
     if (validate) {
+
+      
       const data = {
         email: validate.email,
         password: validate.password
@@ -69,19 +71,19 @@ class Login extends Component {
               })
             })
             .catch(error => {
-              console.log(error)
+              console.log('Error async: ' + JSON.stringify(error))
               alert(error)
             })
         } else {
-          console.log('Error iftoken: ' + error)
-          alert(error)
+          console.log('Error iftoken: ' + JSON.stringify(resp))
+          alert('Error token')
         }
       })
       .catch((error) => {
         if (error.response_code === 416) {
           alert('El usuario o la contraseña son incorrectos!')
         } else {
-          console.log(JSON.stringify(error))
+          console.log("Fetch error: " + JSON.stringify(error))
           alert('Problemas al contactar con el servidor, intentelo mas tarde!')
         }
       })
