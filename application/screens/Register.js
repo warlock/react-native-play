@@ -87,8 +87,7 @@ export default class Register extends Component {
       fetch(apiregister, {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           birthdate: this.validate.birthdate,

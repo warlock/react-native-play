@@ -13,6 +13,7 @@ import AppButton from "../components/AppButton"
 
 const Form = t.form.Form
 
+@connect()
 class Login extends Component {
   constructor () {
     super()
@@ -42,51 +43,54 @@ class Login extends Component {
     }
   }
 
-  tryLogin () {
+  async tryLogin () {
     const validate = this.refs.form.getValue()
     if (validate) {
-
-      
-      const data = {
-        email: validate.email,
-        password: validate.password
+      try {
+        const resp = await fetch('https://reqres.in/api/users', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "name": "morpheus",
+            "job": "leader"
+          })
+        })
+        const jsonmsg = await resp.json()
+        console.log("OK: " + JSON.stringify(jsonmsg))
+      } catch (error) {
+        console.log('error: ' + error)
       }
-      fetch(apilogin, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })
-      .then(resp => resp.json())
-      .then(resp => {
-        if (resp.response_code === 415 && resp.response_data.token) {
-          console.log(resp.response_data.token)
-          AsyncStorage.setItem('@app:token', resp.response_data.token)
-            .then(() => {
-              this.props.dispatch({
-                type: 'SIGN_IN',
-                payload: resp.response_data.token
-              })
-            })
-            .catch(error => {
-              console.log('Error async: ' + JSON.stringify(error))
-              alert(error)
-            })
+  
+      try {
+        const body = JSON.stringify({
+          email: validate.email,
+          password: validate.password
+        })
+        const resp = await fetch('http://j1.jimcrickapp.com:8080/bulltect-integration-platform/api/v1/parents/auth', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body
+        })
+        const jsonmsg = await resp.json()
+        console.log("OK: " + JSON.stringify(jsonmsg))
+        if (jsonmsg && jsonmsg.response_data && jsonmsg.response_data.token) {
+          await AsyncStorage.setItem('@app:token', jsonmsg.response_data.token)
+          this.props.dispatch({
+            type: 'SIGN_IN',
+            payload: jsonmsg.response_data.token
+          })
         } else {
-          console.log('Error iftoken: ' + JSON.stringify(resp))
-          alert('Error token')
+          console.log(`No ha retornat token: ${JSON.stringify(jsonmsg)}`)
         }
-      })
-      .catch((error) => {
-        if (error.response_code === 416) {
-          alert('El usuario o la contraseña son incorrectos!')
-        } else {
-          console.log("Fetch error: " + JSON.stringify(error))
-          alert('Problemas al contactar con el servidor, intentelo mas tarde!')
-        }
-      })
+      } catch (error) {
+        console.log(`fetch error: ${JSON.stringify(error)}`)
+      }
     }
   }
 
@@ -125,4 +129,4 @@ class Login extends Component {
   }
 }
 
-export default connect()(Login)
+export default Login

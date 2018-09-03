@@ -4,6 +4,7 @@ import { View, Text, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import AppButton from '../components/AppButton'
 
+@connect()
 class Home extends Component {
   constructor () {
     super()
@@ -37,4 +38,4 @@ class Home extends Component {
 }
 
 
-export default connect()(Home)
+export default Home

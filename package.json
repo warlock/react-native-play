@@ -10,17 +10,17 @@
   },
   "dependencies": {
     "expo": "^29.0.0",
-    "react": "^16.4.2",
+    "react": "16.4.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
     "react-navigation": "^2.12.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "tcomb-form-native": "^0.6.15"
+    "tcomb-form-native": "^0.6.16"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
-    "eslint": "^5.4.0",
+    "eslint": "^5.5.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-native": "^3.2.1"
   }
