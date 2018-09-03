@@ -89,14 +89,6 @@ export default class Start extends Component {
             iconSize={30}
             iconColor="#fff"
           />
-          <AppButton
-            bgColor="rgba(111, 38, 74, 0.7)"
-            title="Google"
-            action={this.google.bind(this)}
-            iconName="google"
-            iconSize={30}
-            iconColor="#fff"
-          />
         </View>
       </BackgroundImage>
     )
