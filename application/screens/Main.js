@@ -33,14 +33,9 @@ class App extends Component {
 
   render () {
     if (this.props.loaded) {
-      if (this.props.logged) {
-        return (<LoggedNavigation />)
-      } else {
-        return (<GuestNavigation />)
-      }
-    } else {
-      return (<PreLoader />)
-    }
+      if (this.props.logged) return (<LoggedNavigation />)
+      else return (<GuestNavigation />)
+    } else return (<PreLoader />)
   }
 }
 
