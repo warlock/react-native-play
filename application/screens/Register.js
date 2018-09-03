@@ -6,7 +6,7 @@ import t from 'tcomb-form-native'
 import { registerValidation } from '../utils/validation'
 import { Card } from 'react-native-elements'
 const Form = t.form.Form
-import { apiregister } from '../utils/api'
+import { apiRegister } from '../utils/api'
 
 export default class Register extends Component {
   constructor () {
@@ -81,30 +81,25 @@ export default class Register extends Component {
     this.setState({ user })
   }
 
-  register () {
+  async register () {
     this.validate = this.refs.form.getValue()
     if (this.validate) {
-      fetch(apiregister, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          birthdate: this.validate.birthdate,
-          confirm_password: this.validate.confirm_password,
-          email: this.validate.email,
-          first_name: this.validate.first_name,
-          last_name: this.validate.last_name,
-          password_clear: this.validate.password_clear
-        })
-      })
-      .then(resp => resp.json())
-      .then(resp => {
+      const body = {
+        birthdate: this.validate.birthdate,
+        confirm_password: this.validate.confirm_password,
+        email: this.validate.email,
+        first_name: this.validate.first_name,
+        last_name: this.validate.last_name,
+        password_clear: this.validate.password_clear
+      }
+      
+      try {
+        const resp = await apiRegister(body)
         console.log(resp)
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log(error)
-      })
+      }
+
     }
   }
 

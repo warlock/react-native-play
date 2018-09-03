@@ -6,7 +6,7 @@ import { Card } from 'react-native-elements'
 import t from 'tcomb-form-native'
 
 import { formValidation } from '../utils/validation'
-import { apilogin } from '../utils/api'
+import { apiLogin } from '../utils/api'
 
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from "../components/AppButton"
@@ -46,6 +46,7 @@ class Login extends Component {
   async tryLogin () {
     const validate = this.refs.form.getValue()
     if (validate) {
+      /*
       try {
         const resp = await fetch('https://reqres.in/api/users', {
           method: 'POST',
@@ -63,30 +64,22 @@ class Login extends Component {
       } catch (error) {
         console.log('error: ' + error)
       }
+      */
   
       try {
-        const body = JSON.stringify({
+        const body = {
           email: validate.email,
           password: validate.password
-        })
-        const resp = await fetch('http://j1.jimcrickapp.com:8080/bulltect-integration-platform/api/v1/parents/auth', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body
-        })
-        const jsonmsg = await resp.json()
-        console.log("OK: " + JSON.stringify(jsonmsg))
-        if (jsonmsg && jsonmsg.response_data && jsonmsg.response_data.token) {
-          await AsyncStorage.setItem('@app:token', jsonmsg.response_data.token)
+        }
+        const resp = await apiLogin(body)
+        if (resp && resp.response_data && resp.response_data.token) {
+          await AsyncStorage.setItem('@app:token', resp.response_data.token)
           this.props.dispatch({
             type: 'SIGN_IN',
-            payload: jsonmsg.response_data.token
+            payload: resp.response_data.token
           })
         } else {
-          console.log(`No ha retornat token: ${JSON.stringify(jsonmsg)}`)
+          console.log(`No ha retornat token: ${JSON.stringify(resp)}`)
         }
       } catch (error) {
         console.log(`fetch error: ${JSON.stringify(error)}`)

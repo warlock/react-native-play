@@ -18,13 +18,11 @@ class App extends Component {
   async componentDidMount () {
     const value = await AsyncStorage.getItem('@app:token')
     if (value) {
-      console.log('estic aqui ' + value)
       this.props.dispatch({
         type: 'SIGN_IN',
         payload: value
       })
     } else {
-      console.log('boh')
       this.props.dispatch({
         type: 'LOAD_OK'
       })
