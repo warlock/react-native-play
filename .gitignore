@@ -5,3 +5,4 @@ package-lock.json
 application/utils/api.js
 application/utils/firebase.js
 application/utils/facebook.js
+application/utils/google.js

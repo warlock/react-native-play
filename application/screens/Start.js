@@ -5,6 +5,7 @@ import AppButton from '../components/AppButton'
 import { NavigationActions } from 'react-navigation'
 import firebase from 'firebase/app'
 import facebook from '../utils/facebook'
+import google from '../utils/google'
 
 export default class Start extends Component {
   
@@ -27,10 +28,32 @@ export default class Start extends Component {
   }
 
   async facebook () {
-    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(facebook.config.application_id, { permissions: facebook.permissions })
-    const credential = firebase.auth.FacebookAuthProvider.credential(token)
+    var credential = null
+    try {
+      const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(facebook.config.application_id, { permissions: facebook.permissions })
+      credential = firebase.auth.FacebookAuthProvider.credential(token)
+    } catch (error) {
+      console.log(error)
+    }
+
     try {
       await firebase.auth().signInAndRetrieveDataWithCredential(credential)
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  async google () {
+    var credential = null
+    try {
+      const { type, token } = await Expo.Google.logInAsync(google.config)
+      credential = firebase.auth.GoogleAuthProvider.credential(token)
+    } catch (error) {
+      console.log(error)
+    }
+    
+    try {
+      await firebase.auth().signInWithCredential(credential)
     } catch (error) {
       alert(error.message)
     }
@@ -63,6 +86,14 @@ export default class Start extends Component {
             title="Facebook"
             action={this.facebook.bind(this)}
             iconName="facebook"
+            iconSize={30}
+            iconColor="#fff"
+          />
+          <AppButton
+            bgColor="rgba(111, 38, 74, 0.7)"
+            title="Google"
+            action={this.google.bind(this)}
+            iconName="google"
             iconSize={30}
             iconColor="#fff"
           />
