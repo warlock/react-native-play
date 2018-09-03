@@ -3,6 +3,8 @@ import { View } from 'react-native'
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from '../components/AppButton'
 import { NavigationActions } from 'react-navigation'
+import firebase from 'firebase/app'
+import facebook from '../utils/facebook'
 
 export default class Start extends Component {
   
@@ -25,7 +27,13 @@ export default class Start extends Component {
   }
 
   async facebook () {
-
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(facebook.config.application_id, { permissions: facebook.permissions })
+    const credential = firebase.auth.FacebookAuthProvider.credential(token)
+    try {
+      await firebase.auth().signInAndRetrieveDataWithCredential(credential)
+    } catch (error) {
+      alert(error.message)
+    }
   }
 
   render () {
