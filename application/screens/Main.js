@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { AsyncStorage } from 'react-native'
-import GuestNavigation from '../navigations/guest'
+import GuestNavigation from '../navigations/Guest'
+import UserNavigation from '../navigations/User'
 import PreLoader from '../components/PreLoader'
-import Home from './Home'
 
 class App extends Component {
 
@@ -24,7 +24,7 @@ class App extends Component {
   render () {
     if (this.props.loaded) {
       if (this.props.logged) {
-        return (<Home />)
+        return (<UserNavigation />)
       } else {
         return (<GuestNavigation />)
       }

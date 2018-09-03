@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 import AppButton from '../components/AppButton'
 
 class Home extends Component {
+  static navigationOptions = {
+    title: 'Titulo interior'
+  }
+
   constructor () {
     super()
     this.logout = this.logout.bind(this)

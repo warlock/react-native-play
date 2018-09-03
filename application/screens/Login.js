@@ -45,8 +45,7 @@ class Login extends Component {
   tryLogin () {
     const validate = this.refs.form.getValue()
     if (validate) {
-
-      
+      /*
       const data = {
         email: validate.email,
         password: validate.password
@@ -86,6 +85,11 @@ class Login extends Component {
           console.log("Fetch error: " + JSON.stringify(error))
           alert('Problemas al contactar con el servidor, intentelo mas tarde!')
         }
+      })
+      */
+      this.props.dispatch({
+        type: 'SIGN_IN',
+        payload: 'system'
       })
     }
   }
