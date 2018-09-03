@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import GuestNavigation from '../navigations/guest'
+import GuestNavigation from '../navigations/Guest'
+import LoggedNavigation from '../navigations/Logged'
 import PreLoader from '../components/PreLoader'
 import Home from './Home'
 import firebaseConfig from '../utils/firebase'
@@ -34,7 +35,7 @@ class App extends Component {
   render () {
     if (this.props.loaded) {
       if (this.props.logged) {
-        return (<Home />)
+        return (<LoggedNavigation />)
       } else {
         return (<GuestNavigation />)
       }
