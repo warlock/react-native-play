@@ -26,21 +26,13 @@ class Home extends Component {
 
   render () {
     return (
-      <View style={{ marginTop: 20 }}>
+      <View>
         <SearchBar
           lightTheme
           onChangeText={this.someMethod}
           onClearText={this.someMethod}
           placeholder='Type Here...'
         />
-        <Avatar
-          medium
-          rounded
-          source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"}}
-          onPress={() => console.log("Works!")}
-          activeOpacity={0.7}
-        />
-        <Text>Hola user</Text>
         <AppButton
           bgColor="rgba(111, 38, 74, 07)"
           title="Logout"
