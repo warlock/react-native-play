@@ -21,7 +21,5 @@ export const registerValidation = {
     return s.length >= 6
   }),
   first_name: t.String,
-  last_name: t.String,
-  //locale: t.String,
-  //telephone: t.String
+  last_name: t.String
 }

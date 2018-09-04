@@ -3,7 +3,7 @@ import { ImageBackground } from 'react-native'
 
 export default class BackgroundImage extends Component {
   render () {
-    const { source, children } = this.props // Recorda children important
+    const { source, children } = this.props
     return (
       <ImageBackground
         source={ source }

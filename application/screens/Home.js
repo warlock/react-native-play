@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import AppButton from '../components/AppButton'
 import firebase from 'firebase/app'
-import { SearchBar, Avatar } from 'react-native-elements'
+import { SearchBar } from 'react-native-elements'
 
 
 @connect()

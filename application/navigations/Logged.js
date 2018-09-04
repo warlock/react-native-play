@@ -7,11 +7,6 @@ export default createStackNavigator({
     drawerStack
   },
   {
-    /*
-    navigationOptions: {
-      header: HeaderLogged
-    }
-    */
     navigationOptions: ({ navigation }) => ({
       header: <HeaderLogged navigation={navigation} />,
     })

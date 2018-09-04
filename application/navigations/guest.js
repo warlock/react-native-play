@@ -27,7 +27,7 @@ export default createStackNavigator(
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
-        flex: 1 // Magia para centrar titulo
+        flex: 1
       }
     }
   }

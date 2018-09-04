@@ -2,7 +2,6 @@ import React from 'react'
 import { View } from 'react-native'
 import { Icon, Avatar } from 'react-native-elements'
 import { SafeAreaView  } from 'react-navigation'
-import { NavigationActions } from 'react-navigation'
 
 export const HeaderLogged = (props) => (
   <SafeAreaView style={{ backgroundColor: 'grey' }}>

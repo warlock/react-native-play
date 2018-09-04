@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Button } from 'react-native-elements'
-import { Dimensions } from 'react-native' 
 
 export default class AppButton extends Component {
   render () {
     const { action, iconName, iconColor, title, bgColor } = this.props
-    //const { width } = Dimensions.get('window')
     return (
       <Button
         onPress={action}
