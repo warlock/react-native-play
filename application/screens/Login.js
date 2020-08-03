@@ -91,7 +91,7 @@ class Login extends Component {
     //Form ref="form" -> Hace referencia al this.ref.form
 
     const dades = {
-      email: 'jimcuenta1@anpro21.com',
+      email: 'mail@mail.com',
       password: '1234567890'
     }
 
